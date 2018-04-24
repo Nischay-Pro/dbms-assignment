@@ -1,5 +1,9 @@
 module.exports = {
-	host: 'localhost',
-	user: 'root',
-	password: ''
+	connection: {
+		host: 'localhost',
+		user: 'root',
+		password: ''
+	},
+	database: 'blood',
+	usersTable: 'blood_users'
 };

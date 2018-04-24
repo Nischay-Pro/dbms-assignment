@@ -1,10 +1,6 @@
-var mysql = require('mysql');
-var config = require('../config.js');
+var mysql = require('mysql'); 
+var config = require('../config'); 
 
-let connection = mysql.createConnection({
-	host: config.host,
-	user: config.user,
-	password: config.password
-});
+let connection = mysql.createConnection(config.connection); 
 
-module.exports = connection;
+module.exports = connection; 
