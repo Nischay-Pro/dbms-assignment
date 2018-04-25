@@ -15,32 +15,33 @@ html.no-js(lang='zxx')
 		link(rel='stylesheet', href='css/magnific-popup.css')
 		link(rel='stylesheet', href='css/bootstrap.css')
 		link(rel='stylesheet', href='css/main.css')
+		style.
+			.col-centered{
+			float: none;
+			margin: 0 auto;
+			}
 	body
 		.oz-body-wrap
-			// Start Header Area
-			header.default-header.generic-header
-				.container-fluid
-					.header-wrap
-						.header-top.d-flex.justify-content-between.align-items-center
-							.logo
-								a(href='/')
-									img(src='img/logo.png', alt='')
-							.main-menubar.d-flex.align-items-center
-								nav.hide
-									a(href='/') Home
-									a(href='/login') Login
-								.menu-bar
-									span.lnr.lnr-menu
-			section.generic-banner.elements-banner.relative
-				.container
-					.row.height.align-items-center.justify-content-center
-						.col-lg-10
-							.banner-content.text-center
-								h2 Blood Donation System
-								p
-									|  Bring a life back to power. 
-									br
-									|  Make blood donation your responsibility.
+			.section-top-border
+				.row
+					.col-md-4.col-centered
+						article.card-body
+							h4.card-title.text-center.mb-6.mt-1 Sign Up
+							hr
+							p.text-success.text-center Enter your credentials
+							form(action='' method='post')
+								.form-group
+									.input-group
+										.input-group-prepend
+										input.form-control(name='username', placeholder='Username', type='username')
+								.form-group
+									.input-group
+										.input-group-prepend
+										input.form-control(placeholder='******', type='password', name='password')
+								.form-group
+									button.btn.btn-primary.btn-block(type='submit')  Sign Up  
+								p.text-center
+									a(href='/login') Made an account already?
 			script(src='js/vendor/jquery-2.2.4.min.js')
 			script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', integrity='sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4', crossorigin='anonymous')
 			script(src='js/vendor/bootstrap.min.js')
