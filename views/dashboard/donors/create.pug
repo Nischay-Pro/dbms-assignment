@@ -1,0 +1,156 @@
+doctype html
+html.no-js(lang='zxx')
+	head
+		meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+		link(rel='shortcut icon', href='img/fav.png')
+		meta(name='author', content='Nischay Ram Mamidi')
+		meta(name='description', content='')
+		meta(name='keywords', content='')
+		meta(charset='UTF-8')
+		title Blood Donation
+		link(href='https://fonts.googleapis.com/css?family=Poppins:300,500,600', rel='stylesheet')
+		link(rel='stylesheet', href='/css/linearicons.css')
+		link(rel='stylesheet', href='/css/font-awesome.min.css')
+		link(rel='stylesheet', href='/css/nice-select.css')
+		link(rel='stylesheet', href='/css/magnific-popup.css')
+		link(rel='stylesheet', href='/css/bootstrap.css')
+		link(rel='stylesheet', href='/css/main.css')
+		link(rel='stylesheet', href='/css/select2.min.css')
+		link(rel='stylesheet', href='/css/select2-bootstrap.min.css')
+		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css')
+	
+	body
+		.oz-body-wrap
+			// Start Header Area
+			header.default-header.generic-header
+				.container-fluid
+					.header-wrap
+						.header-top.d-flex.justify-content-between.align-items-center
+							.logo
+								a(href='/dashboard/donors')
+									img(src='/img/logo.png', alt='')
+							.main-menubar.d-flex.align-items-center
+								nav.hide
+									a(href='/dashboard') Go back to Dashboard
+									a(href='/dashboard/donors') Go back to Donor Dashboard
+									a(href='/logout') Log Out
+								.menu-bar
+									span.lnr.lnr-menu
+			.white-bg
+				.container
+					.section-top-border
+						h3 Register Donor
+						br
+						form.needs-validation(novalidate='' action='' method='post')
+							h5 Personal Details
+							br
+							.form-row
+								.col-md-4.mb-3
+									label(for='validationCustom01') First name
+									input#validationCustom01.form-control(type='text', placeholder='First name', required='')
+									.invalid-feedback
+										| Please provide a valid First Name
+								.col-md-4.mb-3
+									label(for='validationCustom02') Last name
+									input#validationCustom02.form-control(type='text', placeholder='Last name', required='')
+									.invalid-feedback
+										| Please provide a valid Last Name
+								.col-md-4.mb-3
+									label(for='datepicker') Date of Birth
+									.input-group.date#datepicker
+										input.form-control(type='text', placeholder='MM/DD/YYYY' required='')
+										span.input-group-addon
+											i.glyphicon.glyphicon-th
+							.form-row
+								.col-md-4.mb-3
+									label(for='inputGender') Gender
+									select#inputGender.form-control
+										option.selected Male
+										option Female
+										option Other
+								.col-md-4.mb-3
+									label(for='inputPhone') Phone Number
+									input#inputPhone.form-control(type='text', placeholder='+91 123456789', required='')
+									.invalid-feedback
+										| Please provide a valid Phone Number
+								.col-md-4.mb-3
+									label(for='inputBlood') Blood Group
+									select#inputBlood.form-control
+										option.selected A +
+										option A -
+										option B +
+										option B -
+										option AB +
+										option AB -
+										option O +
+										option O -
+							br
+							h5 Location Details
+							br
+							.form-row
+								.col-md-3.mb-3
+									label(for='validationCustom06') Country
+									input#validationCustom06.form-control(type='text', placeholder='Country', required='')
+									.invalid-feedback
+										| Please provide a valid Country.
+								.col-md-3.mb-3
+									label(for='validationCustom04') State
+									input#validationCustom04.form-control(type='text', placeholder='State', required='')
+									.invalid-feedback
+										| Please provide a valid state.
+								.col-md-3.mb-3
+									label(for='validationCustom03') City
+									input#validationCustom03.form-control(type='text', placeholder='City', required='')
+									.invalid-feedback
+										| Please provide a valid city.
+								.col-md-3.mb-3
+									label(for='validationCustom05') Zip
+									input#validationCustom05.form-control(type='text', placeholder='Zip', required='')
+									.invalid-feedback
+										| Please provide a valid zip.
+							.form-group
+								label(for='inputAddress') Address
+								input#inputAddress.form-control(type='text', placeholder='1234 Main St', required='')
+								.invalid-feedback
+									| Please provide a valid address.
+							.form-group
+								label(for='inputAddress2') Address 2
+								input#inputAddress2.form-control(type='text', placeholder='Apartment, studio, or floor')
+							.form-group
+								.form-check
+									input#invalidCheck.form-check-input(type='checkbox', value='', required='')
+									label.form-check-label(for='invalidCheck')
+										| Agree to terms and conditions
+									.invalid-feedback
+										| You must agree before submitting.
+							button.btn.btn-primary(type='submit') Submit form
+			script(src='/js/vendor/jquery-2.2.4.min.js')
+			script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', integrity='sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4', crossorigin='anonymous')
+			script(src='/js/vendor/bootstrap.min.js')
+			script(src='/js/jquery.ajaxchimp.min.js')
+			script(src='/js/owl.carousel.min.js')
+			script(src='/js/jquery.nice-select.min.js')
+			script(src='/js/jquery.magnific-popup.min.js')
+			script(src='/js/main.js')
+			script(src='/js/select2.min.js')
+			script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js')
+			script.
+				(function() {
+				'use strict';
+				window.addEventListener('load', function() {
+				var forms = document.getElementsByClassName('needs-validation');
+				var validation = Array.prototype.filter.call(forms, function(form) {
+				form.addEventListener('submit', function(event) {
+				if (form.checkValidity() === false) {
+				event.preventDefault();
+				event.stopPropagation();
+				}
+				form.classList.add('was-validated');
+				}, false);
+				});
+				}, false);
+				})();
+				$('.input-group.date').datepicker({
+					maxViewMode: 2,
+					autoclose: true
+				});
