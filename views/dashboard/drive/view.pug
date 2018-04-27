@@ -1,0 +1,128 @@
+doctype html
+html.no-js(lang='zxx')
+	head
+		meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+		link(rel='shortcut icon', href='img/fav.png')
+		meta(name='author', content='Nischay Ram Mamidi')
+		meta(name='description', content='')
+		meta(name='keywords', content='')
+		meta(charset='UTF-8')
+		title Blood Donation
+		link(href='https://fonts.googleapis.com/css?family=Poppins:300,500,600', rel='stylesheet')
+		link(rel='stylesheet', href='/css/linearicons.css')
+		link(rel='stylesheet', href='/css/font-awesome.min.css')
+		link(rel='stylesheet', href='/css/nice-select.css')
+		link(rel='stylesheet', href='/css/magnific-popup.css')
+		link(rel='stylesheet', href='/css/bootstrap.css')
+		link(rel='stylesheet', href='/css/main.css')
+		link(rel='stylesheet', href='/css/select2.min.css')
+		link(rel='stylesheet', href='/css/select2-bootstrap4.min.css')
+		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha18/css/tempusdominus-bootstrap-4.min.css')
+
+	body
+		.oz-body-wrap
+			// Start Header Area
+			header.default-header.generic-header
+				.container-fluid
+					.header-wrap
+						.header-top.d-flex.justify-content-between.align-items-center
+							.logo
+								a(href='/dashboard/drive')
+									img(src='/img/logo.png', alt='')
+							.main-menubar.d-flex.align-items-center
+								nav.hide
+									a(href='/dashboard') Go back to Dashboard
+									a(href='/dashboard/drive') Go back to Blood Drive Dashboard
+									a(href='/logout') Log Out
+								.menu-bar
+									span.lnr.lnr-menu
+			.white-bg
+				.container
+					.section-top-border
+						br
+						a.genric-btn.default.circle.arrow(href='/dashboard/drive') Back
+							span.lnr.lnr-arrow-left
+						br
+						h3 Register Blood Drive Client
+						br
+						if message
+							if type == 'alert-success'
+								.alert.alert-success(role='alert')
+									| #{message}
+							else
+								.alert.alert-danger(role='alert')
+									| #{message}
+
+						form.needs-validation(novalidate='' action='' method='post')
+							h5 Client Details
+							br
+							.form-row
+								.col-md-4.mb-3
+									label(for='driveName') Drive Name
+									input#driveName.form-control(name='driveName' type='text', placeholder='Drive Name', required='')
+								.col-md-4.mb-3
+									label(for='location') Location
+									input#location.form-control(name='location' type='text', placeholder='Location', required='')
+							.form-group
+								label(for='clientID') Blood Donor Client
+								select.form-control.clientID(name='clientID',id='clientID')
+									for client in clients
+										option(value=client.id) #{client.name}
+							.form-group
+								label(for='startTime') Start Time
+								#startTime.input-group.date(data-target-input='nearest')
+									input.form-control.datetimepicker-input(type='text', data-target='#startTime', required='')
+									.input-group-append(data-target='#startTime', data-toggle='datetimepicker')
+										.input-group-text
+											i.fa.fa-calendar
+							.form-group
+								label(for='endTime') End Time
+								#endTime.input-group.date(data-target-input='nearest')
+									input.form-control.datetimepicker-input(type='text', data-target='#endTime', required='')
+									.input-group-append(data-target='#endTime', data-toggle='datetimepicker')
+										.input-group-text
+											i.fa.fa-calendar
+							.form-group
+								.form-check
+									input#invalidCheck.form-check-input(type='checkbox', value='', required='')
+									label.form-check-label(for='invalidCheck')
+										| Agree to terms and conditions
+							button.btn.btn-primary(type='submit') Update
+			script(src='/js/vendor/jquery-2.2.4.min.js')
+			script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js', integrity='sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ', crossorigin='anonymous')
+			script(src='/js/vendor/bootstrap.min.js')
+			script(src='/js/jquery.ajaxchimp.min.js')
+			script(src='/js/owl.carousel.min.js')
+			script(src='/js/jquery.nice-select.min.js')
+			script(src='/js/jquery.magnific-popup.min.js')
+			script(src='/js/main.js')
+			script(src='/js/select2.min.js')
+			script(src='/js/moment.min.js')
+			script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha18/js/tempusdominus-bootstrap-4.min.js')
+			script.
+				(function() {
+				'use strict';
+				window.addEventListener('load', function() {
+				var forms = document.getElementsByClassName('needs-validation');
+				var validation = Array.prototype.filter.call(forms, function(form) {
+				form.addEventListener('submit', function(event) {
+				if (form.checkValidity() === false) {
+				event.preventDefault();
+				event.stopPropagation();
+				}
+				form.classList.add('was-validated');
+				}, false);
+				});
+				}, false);
+				})();
+				$('#startTime').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss'});
+				$('#endTime').datetimepicker({
+					useCurrent: false,
+					format: 'YYYY-MM-DD HH:mm:ss'
+				});
+				$("#startTime").on("change.datetimepicker", function (e) {
+					$('#endTime').datetimepicker('minDate', e.date);
+				});
+				$("#endTime").on("change.datetimepicker", function (e) {
+					$('#startTime').datetimepicker('maxDate', e.date);
+				});

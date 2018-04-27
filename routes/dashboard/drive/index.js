@@ -32,6 +32,18 @@ module.exports = function (app, passport) {
         });
     });
 
+    app.get('/dashboard/drive/create', isLoggedIn, (req, res) => {
+        connection.query(`SELECT * FROM blood_client`, (err, rowsClient) => {
+            if (err) {
+
+            }
+            res.render('dashboard/drive/create', {
+                username: req.user.username,
+                clients: rowsClient
+            });
+        });
+    });
+
     app.get('/dashboard/drive/view/:id', isLoggedIn, (req, res) => {
         try {
             connection.query(`SELECT * FROM blood_drive WHERE id=${connection.escape(req.params.id)}`, (err, row) => {
