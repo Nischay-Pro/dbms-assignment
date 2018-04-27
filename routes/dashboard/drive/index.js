@@ -51,15 +51,19 @@ module.exports = function (app, passport) {
 
                 }
                 if (row.length > 0) {
-                    let data = JSON.parse(JSON.stringify(row[0]));
-                    data.first_name = data.full_name.split('|')[0];
-                    data.last_name = data.full_name.split('|')[1];
-                    res.render('dashboard/drive/view', {
-                        username: req.user.username,
-                        donor: data,
-                        message: req.query.message,
-                        type: req.query.type
+                    connection.query(`SELECT * FROM blood_client`, (err, rowsClient) => {
+                        if (err) {
+
+                        }
+                        let data = JSON.parse(JSON.stringify(row[0]));
+                        res.render('dashboard/drive/view', {
+                            username: req.user.username,
+                            message: req.query.message,
+                            type: req.query.type,
+                            clients: rowsClient
+                        });
                     });
+
                 }
             });
         } catch (ex) {
@@ -102,6 +106,57 @@ module.exports = function (app, passport) {
         }
     });
 
+    app.post('/dashboard/drive/create', isLoggedIn, (req, res) => {
+        try {
+            let elements = {}
+            elements.driveName = connection.escape(req.body.driveName);
+            elements.location = connection.escape(req.body.location);
+            elements.clientID = connection.escape(req.body.clientID);
+            elements.startTime = connection.escape(req.body.startTime);
+            elements.endTime = connection.escape(req.body.endTime);
+            connection.query(`INSERT INTO blood_drive (drive_name,location,start,end,cid) values (${elements.driveName},${elements.location},${elements.startTime},${elements.endTime},${elements.clientID})`, (err, row) => {
+                console.log(`INSERT INTO blood_drive (drive_name,location,start,end,cid) values (${elements.driveName},${elements.location},${elements.startTime},${elements.endTime},${elements.clientID})`);
+                if (err) {
+                    connection.query(`SELECT * FROM blood_client`, (err, rowsClient) => {
+                        if (err) {
+
+                        }
+                        return res.render('dashboard/drive/create', {
+                            username: req.user.username,
+                            message: err,
+                            type: 'alert-danger',
+                            clients: rowsClient
+                        });
+                    });
+                }
+                connection.query(`SELECT * FROM blood_client`, (err, rowsClient) => {
+                    if (err) {
+
+                    }
+                    return res.render('dashboard/drive/create', {
+                        username: req.user.username,
+                        message: `Successfully Registered Blood Drive with Drive ID #${row.insertId}`,
+                        type: 'alert-success',
+                        clients: rowsClient
+                    });
+                });
+            });
+        } catch (ex) {
+            connection.query(`SELECT * FROM blood_client`, (err, rowsClient) => {
+                if (err) {
+
+                }
+                return res.render('dashboard/drive/create', {
+                    username: req.user.username,
+                    message: err,
+                    type: 'alert-danger',
+                    clients: rowsClient
+                });
+            });
+        }
+
+    });
+
     app.post('/dashboard/drive/client', isLoggedIn, (req, res) => {
         try {
             let elements = {}
@@ -135,20 +190,14 @@ module.exports = function (app, passport) {
     app.post('/dashboard/drive/view/:id', isLoggedIn, (req, res) => {
         try {
             let elements = {}
-            elements.full_name = connection.escape(req.body.firstName + '|' + req.body.lastName);
-            console.log(elements.full_name);
-            elements.id = connection.escape(req.body.donorID);
-            elements.id2 = req.body.donorID;
-            elements.gender = connection.escape(req.body.gender);
-            elements.birthday = connection.escape(req.body.birthday);
-            elements.country = connection.escape(req.body.country);
-            elements.state = connection.escape(req.body.state);
-            elements.city = connection.escape(req.body.city);
-            elements.pincode = connection.escape(req.body.pincode);
-            elements.blood_group = connection.escape(req.body.bloodGroup);
-            elements.phone = connection.escape(req.body.phone);
-            elements.address = connection.escape(req.body.address1 + '!' + req.body.address2);
-            connection.query(`UPDATE blood_drive SET full_name = ${elements.full_name},gender=${elements.gender},birthday=${elements.birthday},country=${elements.country},state=${elements.state},city=${elements.city},pincode=${elements.pincode},blood_group=${elements.blood_group},phone=${elements.phone},address=${elements.address} WHERE id=${elements.id}`, (err, row) => {
+            elements.driveName = connection.escape(req.body.driveName);
+            elements.location = connection.escape(req.body.location);
+            elements.clientID = connection.escape(req.body.clientID);
+            elements.startTime = connection.escape(req.body.startTime);
+            elements.endTime = connection.escape(req.body.endTime);
+            elements.id = connection.escape(req.params.id);
+            elements.id2 = req.params.id;
+            connection.query(`UPDATE blood_drive SET drive_name = ${elements.driveName},location=${elements.location},start=${elements.startTime},end=${elements.endTime},cid=${elements.id} WHERE id=${elements.id}`, (err, row) => {
                 if (err) {
                     return res.redirect(url.format({
                         pathname: `/dashboard/drive/view/${elements.id2}`,
