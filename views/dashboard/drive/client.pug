@@ -27,23 +27,23 @@ html.no-js(lang='zxx')
 					.header-wrap
 						.header-top.d-flex.justify-content-between.align-items-center
 							.logo
-								a(href='/dashboard/donors')
+								a(href='/dashboard/drive')
 									img(src='/img/logo.png', alt='')
 							.main-menubar.d-flex.align-items-center
 								nav.hide
 									a(href='/dashboard') Go back to Dashboard
-									a(href='/dashboard/donors') Go back to Donor Dashboard
+									a(href='/dashboard/drive') Go back to Blood Drive Dashboard
 									a(href='/logout') Log Out
 								.menu-bar
 									span.lnr.lnr-menu
 			.white-bg
 				.container
 					.section-top-border
-						a.genric-btn.default.circle.arrow(href='/dashboard/donors')
+						a.genric-btn.default.circle.arrow(href='/dashboard/drive')
 							| Back 
 							span.lnr.lnr-arrow-left
 						br
-						h3 Update Donor
+						h3 Register Blood Drive Client
 						br
 						if message
 							if type == 'alert-success'
@@ -54,70 +54,27 @@ html.no-js(lang='zxx')
 									| #{message}
 
 						form.needs-validation(novalidate='' action='' method='post')
-							h5 Personal Details
+							h5 Client Details
 							br
 							.form-row
 								.col-md-4.mb-3
-									label(for='firstName') First name
-									input#firstName.form-control(name='firstName' type='text', value=donor.first_name placeholder='First name', required='')
+									label(for='clientName') Client Name
+									input#clientName.form-control(name='clientName' type='text', placeholder='Client Name', required='')
 								.col-md-4.mb-3
-									label(for='validationCustom02') Last name
-									input#validationCustom02.form-control(name='lastName' type='text', value=donor.last_name placeholder='Last name', required='')
-								.col-md-4.mb-3
-									label(for='datepicker') Date of Birth
-									.input-group.date#datepicker
-										input.form-control(name='birthday' type='text', value=donor.birthday placeholder='YYYY-MM-DD' required='')
-										span.input-group-addon
-											span.lnr.lnr-calendar-full
-							.form-row
-								.col-md-4.mb-3
-									label(for='inputGender') Gender
-									select#inputGender(name='gender').form-control
-										option.selected(value='Male') Male
-										option(value='Female') Female
-										option(value='Other') Other
-								.col-md-4.mb-3
-									label(for='inputPhone') Phone Number
-									input#inputPhone.form-control(name='phone' type='text', value=donor.phone placeholder='+91 123456789', required='')
-								.col-md-4.mb-3
-									label(for='inputBlood') Blood Group
-									select#inputBlood(name='bloodGroup').form-control
-										option.selected(value='A +') A +
-										option(value='A -') A -
-										option(value='B +') B +
-										option(value='B -') B -
-										option(value='AB +') AB +
-										option(value='AB -') AB -
-										option(value='O +') O +
-										option(value='O -') O -
-							br
-							h5 Location Details
-							br
-							.form-row
-								.col-md-3.mb-3
-									label(for='validationCustom06') Country
-									input#validationCustom06.form-control(name='country', value=donor.country, type='text', placeholder='Country', required='')
-								.col-md-3.mb-3
-									label(for='validationCustom04') State
-									input#validationCustom04.form-control(name='state', value=donor.state, type='text', placeholder='State', required='')
-								.col-md-3.mb-3
-									label(for='validationCustom03') City
-									input#validationCustom03.form-control(name='city', value=donor.city, type='text', placeholder='City', required='')
-								.col-md-3.mb-3
-									label(for='validationCustom05') Zip
-									input#validationCustom05.form-control(name='pincode', value=donor.pincode, type='text', placeholder='Zip', required='')
+									label(for='clientPhone') Phone Number
+									input#clientPhone.form-control(name='clientPhone' type='text', placeholder='+91 123456789', required='')
 							.form-group
 								label(for='inputAddress') Address
-								input#inputAddress.form-control(name='address1' type='text', value=donor.address.split('!')[0], placeholder='1234 Main St', required='')
+								input#inputAddress.form-control(name='address1' type='text', placeholder='1234 Main St', required='')
 							.form-group
 								label(for='inputAddress2') Address 2
-								input#inputAddress2.form-control(name='address2' type='text', value=donor.address.split('!')[1], placeholder='Apartment, studio, or floor')
+								input#inputAddress2.form-control(name='address2' type='text', placeholder='Apartment, studio, or floor')
 							.form-group
 								.form-check
-								input#blood(name='blood', type='hidden', value=donor.blood_group)
-								input#genderID(name='genderID', type='hidden', value=donor.gender)
-								input#donorID(name='donorID', type='hidden', value=donor.id)
-							button.btn.btn-primary(type='submit') Update Profile
+									input#invalidCheck.form-check-input(type='checkbox', value='', required='')
+									label.form-check-label(for='invalidCheck')
+										| Agree to terms and conditions
+							button.btn.btn-primary(type='submit') Submit form
 			script(src='/js/vendor/jquery-2.2.4.min.js')
 			script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', integrity='sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4', crossorigin='anonymous')
 			script(src='/js/vendor/bootstrap.min.js')
@@ -149,7 +106,3 @@ html.no-js(lang='zxx')
 					autoclose: true,
 					format: "yyyy-mm-dd"
 				});
-				$('#inputBlood').val(document.getElementById('blood').value);
-				$('#inputGender').val(document.getElementById('genderID').value);
-				
-				
