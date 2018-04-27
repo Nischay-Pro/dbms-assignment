@@ -52,6 +52,7 @@ require('./routes/index.js')(app, passport);
 require('./routes/dashboard/index.js')(app, passport);
 require('./routes/dashboard/donors/index.js')(app, passport);
 require('./routes/dashboard/drive/index.js')(app, passport);
+require('./routes/dashboard/donate/index.js')(app, passport);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	next(createError(404));
